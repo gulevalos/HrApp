@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">HrApp</string>
+    <string name="no_persons">No Persons imported in DB</string>
+
+</resources>
