@@ -10,7 +10,7 @@ import android.util.Log;
  */
 public class OrgStructureDatabaseHelper extends SQLiteOpenHelper {
 
-    private static final String DATABASE_NAME = "org_structure.db";
+    public static final String DATABASE_NAME = "org_structure.db";
     private static final int DATABASE_VERSION = 11;
 
     public OrgStructureDatabaseHelper(Context context) {
