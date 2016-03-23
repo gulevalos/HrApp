@@ -137,8 +137,8 @@ public class EmployeeListActivity extends AppCompatActivity {
                 switch (menuItem.getItemId()) {
                     case R.id.importJson:
                         Toast.makeText(getApplicationContext(), "importJson", Toast.LENGTH_SHORT).show();
-                        JsonImporter jsonImporter = new JsonImporter();
-                        jsonImporter.execute(getContentResolver());
+                        JsonImporter jsonImporter = new JsonImporter(getBaseContext());
+                        jsonImporter.execute(OrgStructureContentProvider.strJson);
                         return true;
                     default:
                         Toast.makeText(getApplicationContext(), "Somethings Wrong", Toast.LENGTH_SHORT).show();

@@ -2,6 +2,7 @@ package com.example.mardiak.marek.hrapp;
 
 import android.content.ContentProviderOperation;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.OperationApplicationException;
 import android.os.AsyncTask;
 import android.os.RemoteException;
@@ -19,12 +20,19 @@ import java.util.ArrayList;
 /**
  * Created by mm on 3/13/2016.
  */
-public class JsonImporter extends AsyncTask<ContentResolver, Void, Void> {
+public class JsonImporter extends AsyncTask<String, Void, Void> {
+
+    private Context mContext;
+
+    public JsonImporter(Context context) {
+        mContext = context; //Thread safety, memmory leak?
+    }
 
     @Override
-    protected Void doInBackground(ContentResolver... contentResolver) { //TODO thread safety of contentResolver??
+    protected Void doInBackground(String... params) {
+        final ContentResolver contentResolver = mContext.getContentResolver();
         try {
-            JSONObject jsonRootObject = new JSONObject(OrgStructureContentProvider.strJson);
+            JSONObject jsonRootObject = new JSONObject(params[0]);
             JSONArray jsonDepartmentsArray = jsonRootObject.optJSONArray("Departments");
 
             ArrayList<ContentProviderOperation> ops =
@@ -53,7 +61,7 @@ public class JsonImporter extends AsyncTask<ContentResolver, Void, Void> {
             }
 
             try {
-                contentResolver[0].applyBatch(OrgStructureContentProvider.AUTHORITY, ops);
+                contentResolver.applyBatch(OrgStructureContentProvider.AUTHORITY, ops); //TODO verify
             } catch (RemoteException e) {
                 Log.e(JsonImporter.class.getName(), e.getMessage(),e);
                 e.printStackTrace();
@@ -65,9 +73,10 @@ public class JsonImporter extends AsyncTask<ContentResolver, Void, Void> {
             Log.e(JsonImporter.class.getName(), e.getMessage(),e);
             e.printStackTrace();
         }
-        contentResolver[0].notifyChange(OrgStructureContentProvider.DEPARTMENTS_ALL_URI, null);
-        contentResolver[0].notifyChange(OrgStructureContentProvider.EMPLOYEES_BY_DEPARTMENT_ID_URI, null);
-        contentResolver[0].notifyChange(OrgStructureContentProvider.EMPLOYEES_ALL_URI, null);
+        contentResolver.notifyChange(OrgStructureContentProvider.DEPARTMENTS_ALL_URI, null); //TODO verify
+        contentResolver.notifyChange(OrgStructureContentProvider.EMPLOYEES_BY_DEPARTMENT_ID_URI, null);
+        contentResolver.notifyChange(OrgStructureContentProvider.EMPLOYEES_ALL_URI, null);
         return null; //TODO inform main list activity about result
     }
+
 }
