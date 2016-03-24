@@ -1,4 +1,4 @@
-package com.example.mardiak.marek.hrapp.hellojni;
+package com.example.mardiak.marek.hrapp.activities;
 
 /*
  * Copyright (C) 2009 The Android Open Source Project
@@ -27,7 +27,7 @@ import android.widget.Toast;
 /**
  * Created by mm on 3/20/2016.
  */
-public class HelloJni extends Activity
+public class HelloJniActiviti extends Activity
 {
     /** Called when the activity is first created. */
     @Override

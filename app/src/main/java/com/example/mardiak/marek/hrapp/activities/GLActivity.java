@@ -1,4 +1,4 @@
-package com.example.mardiak.marek.hrapp.activities.openglDemo2;
+package com.example.mardiak.marek.hrapp.activities;
 
 import android.app.Activity;
 import android.app.ActivityManager;
@@ -7,11 +7,14 @@ import android.content.pm.ConfigurationInfo;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 
+import com.example.mardiak.marek.hrapp.myOpenGl.MyGLRenderer;
+import com.example.mardiak.marek.hrapp.myOpenGl.MyGlSurfaceView;
+
 /**
- * Created by mm on 3/16/2016.
+ * Created by mm on 3/23/2016.
  */
-public class LessonOneActivity  extends Activity
-{
+public class GLActivity extends Activity {
+
     /** Hold a reference to our GLSurfaceView */
     private GLSurfaceView mGLSurfaceView;
 
@@ -20,7 +23,7 @@ public class LessonOneActivity  extends Activity
     {
         super.onCreate(savedInstanceState);
 
-        mGLSurfaceView = new GLSurfaceView(this);
+        mGLSurfaceView = new MyGlSurfaceView(this);
 
         // Check if the system supports OpenGL ES 2.0.
         final ActivityManager activityManager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
@@ -34,7 +37,7 @@ public class LessonOneActivity  extends Activity
             mGLSurfaceView.setEGLConfigChooser(8, 8, 8, 8, 16, 0); //was not in tutorial
 
             // Set the renderer to our demo renderer, defined below.
-            mGLSurfaceView.setRenderer(new LessonOneRenderer());
+            mGLSurfaceView.setRenderer(new MyGLRenderer());
         }
         else
         {

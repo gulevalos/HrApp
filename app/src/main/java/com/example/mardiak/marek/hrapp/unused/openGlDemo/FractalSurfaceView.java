@@ -1,4 +1,4 @@
-package com.example.mardiak.marek.hrapp.activities.openGlDemo;
+package com.example.mardiak.marek.hrapp.unused.openGlDemo;
 
 import android.content.Context;
 import android.opengl.GLSurfaceView;

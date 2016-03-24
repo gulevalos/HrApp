@@ -1,4 +1,4 @@
-package com.example.mardiak.marek.hrapp.activities.openglDemo2;
+package com.example.mardiak.marek.hrapp.unused.openglDemo2;
 
 /**
  * Created by mm on 3/16/2016.

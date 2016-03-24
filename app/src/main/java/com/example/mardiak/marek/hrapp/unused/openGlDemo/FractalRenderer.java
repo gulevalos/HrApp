@@ -1,10 +1,10 @@
-package com.example.mardiak.marek.hrapp.activities.openGlDemo;
+package com.example.mardiak.marek.hrapp.unused.openGlDemo;
 
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.util.Log;
 
-import com.example.mardiak.marek.hrapp.activities.openGlDemo.model.Fractal;
+import com.example.mardiak.marek.hrapp.unused.openGlDemo.model.Fractal;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;

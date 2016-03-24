@@ -1,8 +1,8 @@
-package com.example.mardiak.marek.hrapp.activities.openGlDemo.model;
+package com.example.mardiak.marek.hrapp.unused.openGlDemo.model;
 
 import android.opengl.GLES20;
 
-import com.example.mardiak.marek.hrapp.activities.openGlDemo.FractalRenderer;
+import com.example.mardiak.marek.hrapp.unused.openGlDemo.FractalRenderer;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;

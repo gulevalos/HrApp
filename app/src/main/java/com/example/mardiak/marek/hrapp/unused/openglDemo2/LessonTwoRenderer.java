@@ -1,7 +1,7 @@
 /**
  * Created by mm on 3/19/2016.
  */
-package com.example.mardiak.marek.hrapp.activities.openglDemo2;
+package com.example.mardiak.marek.hrapp.unused.openglDemo2;
 
         import java.nio.ByteBuffer;
         import java.nio.ByteOrder;

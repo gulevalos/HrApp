@@ -2,7 +2,7 @@
 #include <jni.h>
 
 jstring
-Java_com_example_mardiak_marek_hrapp_hellojni_HelloJni_stringFromJNI( JNIEnv* env,
+Java_com_example_mardiak_marek_hrapp_activities_HelloJniActiviti_stringFromJNI( JNIEnv* env,
                                                   jobject thiz, jstring radioVersion)
 {
 
