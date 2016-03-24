@@ -27,6 +27,7 @@ import android.util.Log;
 public class MyGLRenderer implements GLSurfaceView.Renderer {
 
     private static final String TAG = "MyGLRenderer";
+    private final MyModel myModel;
     private MyGeneralOpenGLES2DrawingHelper renderShapeHelper;
 
     /**
@@ -51,13 +52,16 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
      */
     private float[] mMVPMatrix = new float[16];
 
+    public MyGLRenderer(MyModel myModel) {
+        this.myModel = myModel;
+    }
 
     @Override
     public void onSurfaceCreated(GL10 unused, EGLConfig config) {
+        this.renderShapeHelper = new MyGeneralOpenGLES2DrawingHelper(this.myModel);
         // Set the background frame color
         GLES20.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-        renderShapeHelper = new MyGeneralOpenGLES2DrawingHelper(3, CubeModel.verticesCube, CubeModel.colorsCube, CubeModel.indicesCube);
-    }
+     }
 
     @Override
     public void onDrawFrame(GL10 unused) {
@@ -89,7 +93,7 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
 
         // Rotate the cube
         Matrix.setIdentityM(mModelMatrix, 0);
-        Matrix.rotateM(mModelMatrix, 0, angleInDegrees, CubeModel.mCubeRotationX, CubeModel.mCubeRotationY, CubeModel.mCubeRotationZ);
+        Matrix.rotateM(mModelMatrix, 0, angleInDegrees, myModel.getmCubeRotationX(), myModel.getmCubeRotationY(), myModel.getmCubeRotationZ());
 
         // This multiplies the view matrix by the model matrix, and stores the result in the MVP matrix
         // (which currently contains model * view).
@@ -121,10 +125,6 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
         final float far = 10.0f;
 
         Matrix.frustumM(mProjectionMatrix, 0, left, right, bottom, top, near, far);
-    }
-
-    public void changeColor(float[] color) {
-        renderShapeHelper.setColor(color);
     }
 
     /**

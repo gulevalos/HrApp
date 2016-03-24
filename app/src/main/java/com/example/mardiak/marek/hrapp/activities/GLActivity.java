@@ -31,7 +31,7 @@ public class GLActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
 
     /** Hold a reference to our GLSurfaceView */
-    private GLSurfaceView mGLSurfaceView;
+    private MyGlSurfaceView mGLSurfaceView;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -39,28 +39,6 @@ public class GLActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         mGLSurfaceView = new MyGlSurfaceView(this);
-
-        // Check if the system supports OpenGL ES 2.0.
-        final ActivityManager activityManager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-        final ConfigurationInfo configurationInfo = activityManager.getDeviceConfigurationInfo();
-        final boolean supportsEs2 = configurationInfo.reqGlEsVersion >= 0x20000;
-
-        if (supportsEs2)
-        {
-            // Request an OpenGL ES 2.0 compatible context.
-            mGLSurfaceView.setEGLContextClientVersion(2);
-            mGLSurfaceView.setEGLConfigChooser(8, 8, 8, 8, 16, 0); //was not in tutorial
-
-            // Set the renderer to our demo renderer, defined below.
-            mGLSurfaceView.setRenderer(new MyGLRenderer());
-        }
-        else
-        {
-            // This is where you could create an OpenGL ES 1.x compatible
-            // renderer if you wanted to support both ES 1 and ES 2.
-            return;
-        }
-
 
         setContentView(R.layout.gl_layout);
         ((FrameLayout)findViewById(R.id.gl_content_frame)).addView(mGLSurfaceView);
@@ -109,31 +87,37 @@ public class GLActivity extends AppCompatActivity {
                 //Check to see which item was being clicked and perform appropriate action
                 switch (menuItem.getItemId()) {
                     case R.id.changeColor:
-                        Toast.makeText(getApplicationContext(), "importJson", Toast.LENGTH_SHORT).show();
+                        mGLSurfaceView.changeModelColor(new float[]{ 1.0f, 0.2f, 0.2f, 1.0f});
+                        Toast.makeText(getApplicationContext(), "ColorChanged", Toast.LENGTH_SHORT).show();
                         return true;
                     default:
                         Toast.makeText(getApplicationContext(), "Somethings Wrong", Toast.LENGTH_SHORT).show();
                         return true;
+                    }
                 }
             }
-        });
 
-        // Initializing Drawer Layout and ActionBarToggle
-        drawerLayout = (DrawerLayout) findViewById(R.id.gl_drawer);
-        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.openDrawer, R.string.closeDrawer) {
+            );
 
-            @Override
-            public void onDrawerClosed(View drawerView) {
-                super.onDrawerClosed(drawerView);
-            }
+            // Initializing Drawer Layout and ActionBarToggle
+            drawerLayout=(DrawerLayout)
 
-            @Override
-            public void onDrawerOpened(View drawerView) {
-                super.onDrawerOpened(drawerView);
-            }
-        };
+            findViewById(R.id.gl_drawer);
 
-        drawerLayout.setDrawerListener(actionBarDrawerToggle);
-        actionBarDrawerToggle.syncState();
+            ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.openDrawer, R.string.closeDrawer) {
+
+                @Override
+                public void onDrawerClosed(View drawerView) {
+                    super.onDrawerClosed(drawerView);
+                }
+
+                @Override
+                public void onDrawerOpened(View drawerView) {
+                    super.onDrawerOpened(drawerView);
+                }
+            };
+
+            drawerLayout.setDrawerListener(actionBarDrawerToggle);
+            actionBarDrawerToggle.syncState();
     }
 }

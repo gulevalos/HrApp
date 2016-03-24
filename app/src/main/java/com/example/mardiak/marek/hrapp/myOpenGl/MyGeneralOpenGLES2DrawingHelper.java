@@ -47,18 +47,19 @@ public class MyGeneralOpenGLES2DrawingHelper {
     private final int vertexCount;
     private final int vertexStride; // 4 bytes per vertex
 
-    private float[] color=new float[4];
     int drawMode= GLES20.GL_TRIANGLES;
 
-    public MyGeneralOpenGLES2DrawingHelper(int coordsPerVertex, float[] coordinates, float[] color, short[] drawOrder)
+    public MyModel myModel;
+
+    public MyGeneralOpenGLES2DrawingHelper(MyModel model)
     {
-        this.drawOrder=drawOrder;
-        COORDS_PER_VERTEX=coordsPerVertex;
-        coords=coordinates;
+        myModel = model;
+        this.drawOrder=myModel.drawOrder();
+        COORDS_PER_VERTEX=myModel.getCoordsPerVertex();
+        coords=myModel.getCoordinates();
 
         vertexCount = coords.length / COORDS_PER_VERTEX;
         vertexStride = COORDS_PER_VERTEX * 4; // 4 bytes per vertex
-        this.setColor(color);
 
         ////////////////////////////////////////
         // initialize vertex byte buffer for shape coordinates
@@ -130,7 +131,7 @@ public class MyGeneralOpenGLES2DrawingHelper {
         mColorHandle = GLES20.glGetUniformLocation(mProgram, "vColor");
 
         // Set color for drawing the triangle
-        GLES20.glUniform4fv(mColorHandle, 1, getColor(), 0);
+        GLES20.glUniform4fv(mColorHandle, 1, myModel.getColor(), 0);
 
         // get handle to shape's transformation matrix
         mMVPMatrixHandle = GLES20.glGetUniformLocation(mProgram, "uMVPMatrix");
@@ -147,11 +148,4 @@ public class MyGeneralOpenGLES2DrawingHelper {
         GLES20.glDisableVertexAttribArray(mPositionHandle);
     }
 
-    public float[] getColor() {
-        return color;
-    }
-
-    public void setColor(float[] color) {
-        this.color = color;
-    }
 }
