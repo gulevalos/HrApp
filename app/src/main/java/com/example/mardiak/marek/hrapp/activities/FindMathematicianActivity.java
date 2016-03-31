@@ -1,7 +1,7 @@
 package com.example.mardiak.marek.hrapp.activities;
 
 import android.content.Context;
-import android.os.Environment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,7 +9,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -35,16 +34,6 @@ public class FindMathematicianActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activiti_mathematicians);
         initAutocompleteSearch();
-
-/*        WebView mWebView;
-        mWebView = (WebView) findViewById(R.id.mathematician_webview2);
-        mWebView.getSettings().setLoadWithOverviewMode(true);
-        mWebView.getSettings().setUseWideViewPort(true);
-        mWebView.getSettings().setBuiltInZoomControls(true);
-        mWebView.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
-        mWebView.setScrollbarFadingEnabled(false);
-        String html = "file:///android_asset/Mathematicians/Adams_Edwin.html";
-        mWebView.loadUrl(html);*/
     }
 
 
@@ -91,8 +80,15 @@ public class FindMathematicianActivity extends AppCompatActivity {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getBaseContext(), "this is my Toast message!!! =)",
-                        Toast.LENGTH_LONG).show();
+/*                Toast.makeText(getBaseContext(), "this is my Toast message!!! =)",
+                        Toast.LENGTH_LONG).show();*/
+                // Begin the transaction
+                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                // Replace the contents of the container with the new fragment
+                ft.replace(R.id.your_placeholder, MathematicianWebViewFragment.newInstance((String) view.getTag()));
+                // or ft.add(R.id.your_placeholder, new MathematicianWebViewFragment());
+                // Complete the changes added above
+                ft.commit();
             }
         });
         actionBar.setCustomView(v);
@@ -122,7 +118,7 @@ public class FindMathematicianActivity extends AppCompatActivity {
             return result;
         }
 
-        @SuppressWarnings("unchecked") //TODO which thread runs this?
+        @SuppressWarnings("unchecked")
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
             searchAdapter.clear();
